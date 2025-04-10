@@ -76,7 +76,7 @@ def draw_graph(highlight_path=None):
 
         # highlight edges
         nx.draw_networkx_edges(G, node_positions, edgelist=path_edges,
-                               width=3, edge_color='green', ax=ax)
+                               width=3, edge_color='red', ax=ax)
 
     plt.tight_layout()
     plt.show()
