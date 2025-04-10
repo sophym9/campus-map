@@ -76,7 +76,7 @@ def draw_graph(highlight_path=None):
 
         # highlight edges
         nx.draw_networkx_edges(G, node_positions, edgelist=path_edges,
-                               width=3, edge_color='red', ax=ax)
+                               width=3, edge_color='green', ax=ax)
 
     plt.tight_layout()
     plt.show()
@@ -118,4 +118,3 @@ ttk.Button(root, text="Find Path", command=on_find_path).pack()
 ttk.Label(root, textvariable=result, wraplength=350, foreground="blue").pack(pady=15)
 
 root.mainloop()
-
