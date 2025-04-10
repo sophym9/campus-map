@@ -49,7 +49,7 @@ def find_path(graph, start, end, accessible=False):
 
 #map visualization
 def draw_graph(highlight_path=None):
-    img = mpimg.imread("duke_map.png")  # Make sure this matches your image file
+    img = mpimg.imread("duke_map.png") 
 
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.imshow(img)
