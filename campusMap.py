@@ -102,7 +102,7 @@ def draw_graph(highlight_path=None):
 
     #background graph
     nx.draw(G, pos=node_positions, ax=ax,
-            node_color='white', node_size=100, edge_color='lightgray', width=1.5,
+            node_color='#f7a8dc', node_size=100, edge_color='lightgray', width=1.5,
             with_labels=False)
 
     #highlight path
@@ -111,16 +111,16 @@ def draw_graph(highlight_path=None):
 
         #highlight nodes
         nx.draw_networkx_nodes(G, node_positions, nodelist=highlight_path,
-                               node_color='orange', node_size=250, ax=ax)
+                               node_color='#f213a4', node_size=250, ax=ax)
 
         nx.draw_networkx_labels(G, node_positions,
                                 labels={n: n for n in highlight_path},
                                 font_size=6, font_color='black', font_weight='bold', ax=ax,
-                                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.1'))
+                                bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.2'))
 
         # highlight edges
         nx.draw_networkx_edges(G, node_positions, edgelist=path_edges,
-                               width=3, edge_color='red', ax=ax)
+                               width=3, edge_color='#f213a4', ax=ax)
 
     plt.tight_layout()
     plt.show()
