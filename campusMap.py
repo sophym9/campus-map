@@ -6,21 +6,65 @@ from tkinter import ttk, messagebox
 
 #create edges
 G = nx.Graph()
-nodes = ["Perkins Library", "Duke Chapel", "Bryan Center", "Brodhead Center"]
+nodes = ["Perkins Library", "Duke Chapel", "Bryan Center", "West Union", "Page", "Allen", 
+         "Social Sciences", "Reuben Cooke", "Old Chem", "Bostock", "Languages", "Penn", 
+         "Wellness", "Wilson", "Gross Hall", "BioSci", "French", "Physics", "LSRC"]
 G.add_nodes_from(nodes)
 
-G.add_edge("Perkins Library", "Duke Chapel", normal_weight=2, accessible_weight=3)
-G.add_edge("Bryan Center", "Brodhead Center", normal_weight=2, accessible_weight=3)
-G.add_edge("Perkins Library", "Brodhead Center", normal_weight=2, accessible_weight=2)
-G.add_edge("Duke Chapel", "Brodhead Center", normal_weight=2, accessible_weight=3)
-G.add_edge("Duke Chapel", "Bryan Center", normal_weight=1)
+G.add_edge("West Union", "Page", normal_weight=1)  # not accessible
+G.add_edge("West Union", "Perkins Library", normal_weight=1, accessible_weight=1)
+G.add_edge("Perkins Library", "Duke Chapel", normal_weight=1, accessible_weight=2)
+G.add_edge("Page", "Duke Chapel", normal_weight=1, accessible_weight=1)
+G.add_edge("West Union", "Allen", normal_weight=2, accessible_weight=2)
+G.add_edge("Page", "Bryan Center", normal_weight=2)  # not accessible
+G.add_edge("West Union", "Bryan Center", normal_weight=1, accessible_weight=1)
+G.add_edge("Duke Chapel", "Bryan Center", normal_weight=2, accessible_weight=4)
+G.add_edge("Perkins Library", "Languages", normal_weight=1, accessible_weight=1)
+G.add_edge("Perkins Library", "Allen", normal_weight=1, accessible_weight=1)
+G.add_edge("Perkins Library", "Social Sciences", normal_weight=1, accessible_weight=1)
+G.add_edge("Allen", "Social Sciences", normal_weight=1, accessible_weight=1)
+G.add_edge("Social Sciences", "Reuben Cooke", normal_weight=1, accessible_weight=1)
+G.add_edge("Languages", "Old Chem", normal_weight=1, accessible_weight=1)
+G.add_edge("Languages", "Social Sciences", normal_weight=1, accessible_weight=1)
+G.add_edge("Reuben Cooke", "Old Chem", normal_weight=1, accessible_weight=1)
+G.add_edge("Old Chem", "Bostock", normal_weight=1, accessible_weight=1)
+G.add_edge("Bostock", "Perkins Library", normal_weight=1, accessible_weight=1)
+G.add_edge("Bryan Center", "Penn", normal_weight=1, accessible_weight=1)
+G.add_edge("Penn", "Wellness", normal_weight=1, accessible_weight=1)
+G.add_edge("Wellness", "Wilson", normal_weight=4, accessible_weight=4)
+G.add_edge("Wellness", "Gross Hall", normal_weight=4, accessible_weight=4)
+G.add_edge("BioSci", "Gross Hall", normal_weight=3, accessible_weight=5)
+G.add_edge("BioSci", "French", normal_weight=2)  # not accessible
+G.add_edge("BioSci", "Physics", normal_weight=2, accessible_weight=2)
+G.add_edge("French", "Physics", normal_weight=2, accessible_weight=2)
+G.add_edge("Physics", "LSRC", normal_weight=3, accessible_weight=8)
+G.add_edge("Physics", "Duke Chapel", normal_weight=3)  # not accessible
+G.add_edge("Wilson", "West Union", normal_weight=7, accessible_weight=7)
+G.add_edge("Gross Hall", "Bryan Center", normal_weight=4)  # not accessible
+G.add_edge("Physics", "Bryan Center", normal_weight=3, accessible_weight=3)
+G.add_edge("BioSci", "Bryan Center", normal_weight=3, accessible_weight=3)
 
 #nodes
 node_positions = {
     "Perkins Library": (1575, 515),
     "Duke Chapel": (1410, 425),
     "Bryan Center": (1170, 400),
-    "Brodhead Center": (1250, 550),
+    "West Union": (1250, 550),
+    "Page": (1295, 460),
+    "Allen": (1525, 700),
+    "Social Sciences": (1700, 700),
+    "Reuben Cooke": (1880, 700),
+    "Old Chem": (1800, 550),
+    "Bostock": (1835, 450),
+    "Languages": (1695, 570),
+    "Penn": (950, 370),
+    "Wellness": (750, 370),
+    "Wilson": (500, 735),
+    "Gross Hall": (760, 215),
+    "BioSci": (1090, 240),
+    "French": (1150, 165),
+    "Physics": (1240, 240),
+    "LSRC": (1460, 175)
 }
 
 #find path (dfs)
