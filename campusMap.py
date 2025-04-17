@@ -14,7 +14,7 @@ nodes = ["Perkins Library", "Duke Chapel", "Bryan Center", "West Union", "Page",
 G.add_nodes_from(nodes)
 
 G.add_edge("West Union", "Page", normal_weight=1)  # not accessible
-G.add_edge("West Union", "Perkins Library", normal_weight=1, accessible_weight=1)
+G.add_edge("West Union", "Perkins Library", normal_weight=2, accessible_weight=2)
 G.add_edge("Perkins Library", "Duke Chapel", normal_weight=1, accessible_weight=2)
 G.add_edge("Page", "Duke Chapel", normal_weight=1, accessible_weight=1)
 G.add_edge("West Union", "Allen", normal_weight=2, accessible_weight=2)
@@ -43,7 +43,7 @@ G.add_edge("Physics", "LSRC", normal_weight=3, accessible_weight=8)
 G.add_edge("Physics", "Duke Chapel", normal_weight=3)  # not accessible
 G.add_edge("Wilson", "West Union", normal_weight=7, accessible_weight=7)
 G.add_edge("Gross Hall", "Bryan Center", normal_weight=4)  # not accessible
-G.add_edge("Physics", "Bryan Center", normal_weight=3, accessible_weight=3)
+G.add_edge("Physics", "Bryan Center", normal_weight=4, accessible_weight=4)
 G.add_edge("BioSci", "Bryan Center", normal_weight=3, accessible_weight=3)
 
 #nodes
@@ -74,7 +74,7 @@ node_positions = {
 	"West Union": (36.00077963338793, -78.93936323823499),
 	"Page": (36.00129135336987, -78.93992262979393),
 	"Allen": (36.00128888402019, -78.93778809614771),
-	"Reuben-Cooke": (36.002446998795385, -78.93706961044322)
+	"Reuben Cooke": (36.002446998795385, -78.93706961044322)
 }
 
 #find path (dfs)
