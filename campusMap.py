@@ -136,7 +136,7 @@ def draw_graph(highlight_path=None):
     plt.show()
 
 
-def draw_folium_map(highlight_path=None):
+def draw_folium_map(highlight_path=None, accessible=False, time=None):
     start = node_positions[highlight_path[0]]
     campus_map = folium.Map(location=start, zoom_start=17)
 
@@ -145,13 +145,23 @@ def draw_folium_map(highlight_path=None):
 
     if highlight_path:
         coords = [node_positions[node] for node in highlight_path]
-        folium.PolyLine(coords, color="red", weight=5).add_to(campus_map)
+        #folium.PolyLine(coords, color="red", weight=5).add_to(campus_map)
+
+        # Create label
+        path_type = "Accessible" if accessible else "Default"
+        path_label = f"{path_type} Path: {highlight_path[0]} → {highlight_path[-1]} ({time} min)"
+
+        folium.PolyLine(
+            coords,
+            color="red",
+            weight=5,
+            tooltip=path_label  # This adds the hover label
+        ).add_to(campus_map)
 
     map_path = "duke_path_map.html"
     campus_map.save(map_path)
     chrome_path = "open -a /Applications/Google\\ Chrome.app %s"
     webbrowser.get(chrome_path).open(map_path)
-    #webbrowser.open("duke_path_map.html")
 
 
 
@@ -167,7 +177,7 @@ def on_find_path():
     path, time = find_path(G, start, end, accessible)
     if path:
         result.set(f"{'Accessible' if accessible else 'Default'} Path:\n{' -> '.join(path)}\n({time} min)")
-        draw_folium_map(highlight_path=path)
+        draw_folium_map(highlight_path=path, accessible=accessible, time=time)
     else:
         result.set("No path found.")
 
