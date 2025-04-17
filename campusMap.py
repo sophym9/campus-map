@@ -222,12 +222,12 @@ def draw_folium_map(paths=None, accessible=False, time=None):
         background-color: rgba(255, 255, 255, 0.8);  /* 80% opaque white */
         border-radius: 5px;
         box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-        padding: 1px;  /* Reduced padding to allow icon to fill more space */
+        padding: 2px;  /* Reduced padding to allow icon to fill more space */
         display: flex;
         align-items: center;
         justify-content: center;
         ">
-        <img src="duke_accessibility_map_icon.ico" style="width: 100%; height: 100%; object-fit: contain;">
+        <img src="duke_logo.png" style="width: 90%; height: 90%; object-fit: contain;">
     </div>
     """
     campus_map.get_root().html.add_child(folium.Element(logo_html))
@@ -308,7 +308,7 @@ from PIL import Image, ImageTk
 # Load and resize the icon
 try:
     # Load and resize the icon
-    icon_img = Image.open("duke_accessibility_map_icon.ico").resize((64, 64))
+    icon_img = Image.open("duke_logo.png").resize((64, 64))
     icon_tk = ImageTk.PhotoImage(icon_img)
     
     # Place it at the top of your GUI using pack
