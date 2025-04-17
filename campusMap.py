@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import tkinter as tk
 from tkinter import ttk, messagebox
+import folium
+import webbrowser
 
 #create edges
 G = nx.Graph()
@@ -52,26 +54,27 @@ G.add_edge("BioSci", "Bryan Center", normal_weight=3, accessible_weight=3)
 #    "Brodhead Center": (1250, 550),
 #}
 
+
 node_positions = {
-    "Perkins Library": (1575, 515),
-    "Duke Chapel": (1410, 425),
-    "Bryan Center": (1170, 400),
-    "West Union": (1250, 550),
-    "Page": (1295, 460),
-    "Allen": (1525, 700),
-    "Social Sciences": (1700, 700),
-    "Reuben Cooke": (1880, 700),
-    "Old Chem": (1800, 550),
-    "Bostock": (1835, 450),
-    "Languages": (1695, 570),
-    "Penn": (950, 370),
-    "Wellness": (750, 370),
-    "Wilson": (500, 735),
-    "Gross Hall": (760, 215),
-    "BioSci": (1090, 240),
-    "French": (1150, 165),
-    "Physics": (1240, 240),
-    "LSRC": (1460, 175)
+    “Social Sciences”: (36.00190148700303, -78.93745674618748),
+	“Old Chem”: (36.00286152405447, -78.9377500885152),
+	“Bostock”: (36.003286293526564, -78.93817610015441),
+	“Languages”: (36.0022038682192, -78.93758027554739),
+	“Penn”: (36.00022701080743, -78.94004612766199),
+	“Wellness”: (35.99868467193, -78.93879750808873),
+	“Wilson”: (35.997488413219585, -78.94111605412172),
+    “French”: (36.00307041734834, -78.94341767317096),
+    “Physics”: (36.00333833198901, -78.94253000899681),
+    “Gross Hall”: (36.00133946557715, -78.94475781060652),
+    “LSRC”: (36.00449510522876, -78.94196642519233),
+    “BioSci”: (36.00219492164742, -78.94305261083066),
+    “Perkins Library”: (36.00221828229353, -78.93838338024973),
+	“Duke Chapel”: (36.00195241128331, -78.94029518851522),
+	“Bryan Center”: (36.00121978651383, -78.94111049036783),
+	“West Union”: (36.00108959126222, -78.93900763849629),
+	“Page”: (36.001375945543685, -78.93968585412149),
+	“Allen”: (36.00125544737199, -78.937399273171),
+	“Reuben-Cooke”: (36.00259906317207, -78.93704131735133)
 }
 
 #find path (dfs)
@@ -132,9 +135,6 @@ def draw_graph(highlight_path=None):
     plt.tight_layout()
     plt.show()
 
-
-import folium
-import webbrowser
 
 def draw_folium_map(highlight_path=None):
     start = node_positions[highlight_path[0]]
