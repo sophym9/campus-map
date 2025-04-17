@@ -16,11 +16,18 @@ G.add_edge("Duke Chapel", "Brodhead Center", normal_weight=2, accessible_weight=
 G.add_edge("Duke Chapel", "Bryan Center", normal_weight=1)
 
 #nodes
+#node_positions = {
+#    "Perkins Library": (1575, 515),
+#    "Duke Chapel": (1410, 425),
+#    "Bryan Center": (1170, 400),
+#    "Brodhead Center": (1250, 550),
+#}
+
 node_positions = {
-    "Perkins Library": (1575, 515),
-    "Duke Chapel": (1410, 425),
-    "Bryan Center": (1170, 400),
-    "Brodhead Center": (1250, 550),
+    "Perkins Library": (36.0014, -78.9382),
+    "Duke Chapel": (36.0010, -78.9392),
+    "Bryan Center": (36.0002, -78.9385),
+    "Brodhead Center": (36.0007, -78.9380),
 }
 
 #find path (dfs)
@@ -82,6 +89,26 @@ def draw_graph(highlight_path=None):
     plt.show()
 
 
+import folium
+import webbrowser
+
+def draw_folium_map(highlight_path=None):
+    start = node_positions[highlight_path[0]]
+    campus_map = folium.Map(location=start, zoom_start=17)
+
+    for name, coord in node_positions.items():
+        folium.Marker(coord, tooltip=name).add_to(campus_map)
+
+    if highlight_path:
+        coords = [node_positions[node] for node in highlight_path]
+        folium.PolyLine(coords, color="red", weight=5).add_to(campus_map)
+
+    campus_map.save("duke_path_map.html")
+    webbrowser.open("duke_path_map.html")
+
+
+
+
 #gui
 def on_find_path():
     start = start_var.get()
@@ -93,7 +120,7 @@ def on_find_path():
     path, time = find_path(G, start, end, accessible)
     if path:
         result.set(f"{'Accessible' if accessible else 'Normal'} Path:\n{' -> '.join(path)}\n({time} min)")
-        draw_graph(highlight_path=path)
+        draw_folium_map(highlight_path=path)
     else:
         result.set("No path found.")
 
