@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_d3e029754a164bd8fde2c7f1d894017e {
+                #map_cdf339057c1afd35d167a88ea5864f69 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -41,26 +41,51 @@
     
     <div style="
         position: fixed; 
-        bottom: 50px; left: 50px; width: 200px; height: 120px; 
-        border:2px solid grey; z-index:9999; font-size:14px;
-        background-color:white; padding:10px;">
+        bottom: 50px; left: 50px; 
+        width: 200px;
+        z-index: 9999; 
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent white */
+        border-radius: 5px;  /* Rounded corners */
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);  /* Subtle shadow */
+        padding: 12px;
+        ">
         <b>Path Legend</b><br>
-        <span style="color:red;">&#9632;</span> Default Route<br>
-        <span style="color:blue;">&#9632;</span> Accessible Route<br>
-        <span style="color:#c084fc;">&#9632;</span> Same Path (Default + Accessible)<br>
+        <div style="margin-top: 8px;">
+            <span style="color:red; font-size: 16px;">&#9632;</span> Default Route<br>
+            <span style="color:blue; font-size: 16px;">&#9632;</span> Accessible Route<br>
+            <span style="color:#c084fc; font-size: 16px;">&#9632;</span> Same Path (Default + Accessible)<br>
+        </div>
     </div>
     
     
-            <div class="folium-map" id="map_d3e029754a164bd8fde2c7f1d894017e" ></div>
+    <div style="
+        position: fixed; 
+        top: 20px; right: 20px; 
+        width: 80px; height: 80px;  /* Made the container larger */
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.8);  /* 80% opaque white */
+        border-radius: 5px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        padding: 1px;  /* Reduced padding to allow icon to fill more space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ">
+        <img src="duke_accessibility_map_icon.ico" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    
+    
+            <div class="folium-map" id="map_cdf339057c1afd35d167a88ea5864f69" ></div>
         
 </body>
 <script>
     
     
-            var map_d3e029754a164bd8fde2c7f1d894017e = L.map(
-                "map_d3e029754a164bd8fde2c7f1d894017e",
+            var map_cdf339057c1afd35d167a88ea5864f69 = L.map(
+                "map_cdf339057c1afd35d167a88ea5864f69",
                 {
-                    center: [36.00449510522876, -78.94196642519233],
+                    center: [36.00077963338793, -78.93936323823499],
                     crs: L.CRS.EPSG3857,
                     ...{
   "zoom": 17,
@@ -75,7 +100,7 @@
 
         
     
-            var tile_layer_890526ce341ad14feffe1d2729b07c6d = L.tileLayer(
+            var tile_layer_5f89b76f60d53297dbe11615641cdc95 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -92,17 +117,17 @@
             );
         
     
-            tile_layer_890526ce341ad14feffe1d2729b07c6d.addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            tile_layer_5f89b76f60d53297dbe11615641cdc95.addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            var marker_c8b0d084ba79bcfaf084b89f055efc9c = L.marker(
+            var marker_108f4a2f8655a4f839d7fd8594578acf = L.marker(
                 [36.00176696782578, -78.93747970055111],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_c8b0d084ba79bcfaf084b89f055efc9c.bindTooltip(
+            marker_108f4a2f8655a4f839d7fd8594578acf.bindTooltip(
                 `<div>
                      Social Sciences
                  </div>`,
@@ -112,14 +137,14 @@
             );
         
     
-            var marker_c699df73eafe22bd63ac3292035dc367 = L.marker(
+            var marker_445c148b36544ae6b57312dbead6c18d = L.marker(
                 [36.00286152405447, -78.9377500885152],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_c699df73eafe22bd63ac3292035dc367.bindTooltip(
+            marker_445c148b36544ae6b57312dbead6c18d.bindTooltip(
                 `<div>
                      Old Chem
                  </div>`,
@@ -129,14 +154,14 @@
             );
         
     
-            var marker_ccd4ef6518439efcd7b4625889d243a0 = L.marker(
+            var marker_c9c88845c017ae719dfa0d67f650c59b = L.marker(
                 [36.002929267595746, -78.93837160220919],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_ccd4ef6518439efcd7b4625889d243a0.bindTooltip(
+            marker_c9c88845c017ae719dfa0d67f650c59b.bindTooltip(
                 `<div>
                      Bostock
                  </div>`,
@@ -146,14 +171,14 @@
             );
         
     
-            var marker_97ff78bb447acbd9f7c8931fbffec36d = L.marker(
+            var marker_2f04a4d9877c5d94084613eb9cec68a0 = L.marker(
                 [36.00225493310811, -78.93804097798417],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_97ff78bb447acbd9f7c8931fbffec36d.bindTooltip(
+            marker_2f04a4d9877c5d94084613eb9cec68a0.bindTooltip(
                 `<div>
                      Languages
                  </div>`,
@@ -163,14 +188,14 @@
             );
         
     
-            var marker_2a58f613e08d8dffd0b6b741abe818f8 = L.marker(
+            var marker_c3cb4433b6d0641777c6554512e56a2c = L.marker(
                 [36.00013715087822, -78.94080791683703],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_2a58f613e08d8dffd0b6b741abe818f8.bindTooltip(
+            marker_c3cb4433b6d0641777c6554512e56a2c.bindTooltip(
                 `<div>
                      Penn
                  </div>`,
@@ -180,14 +205,14 @@
             );
         
     
-            var marker_eac7650ddd81d3fc72b8fac320c79657 = L.marker(
+            var marker_7abc8923cfecaeb5ae157a60649ada24 = L.marker(
                 [35.99972870405351, -78.94125970403643],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_eac7650ddd81d3fc72b8fac320c79657.bindTooltip(
+            marker_7abc8923cfecaeb5ae157a60649ada24.bindTooltip(
                 `<div>
                      Wellness
                  </div>`,
@@ -197,14 +222,14 @@
             );
         
     
-            var marker_102af9b20edeb6594fb31efc2f9d1f6e = L.marker(
+            var marker_7b076df20f6ea5abf30ede7a8c4dc7fb = L.marker(
                 [35.99723376012868, -78.94100735092454],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_102af9b20edeb6594fb31efc2f9d1f6e.bindTooltip(
+            marker_7b076df20f6ea5abf30ede7a8c4dc7fb.bindTooltip(
                 `<div>
                      Wilson
                  </div>`,
@@ -214,14 +239,14 @@
             );
         
     
-            var marker_36f6f49b6d92f88b6238700c182650f4 = L.marker(
+            var marker_db6f0ff558b21b3df4bb40aa13153e06 = L.marker(
                 [36.00307041734834, -78.94341767317096],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_36f6f49b6d92f88b6238700c182650f4.bindTooltip(
+            marker_db6f0ff558b21b3df4bb40aa13153e06.bindTooltip(
                 `<div>
                      French
                  </div>`,
@@ -231,14 +256,14 @@
             );
         
     
-            var marker_967087ecd8d91d7ba722314d2281c5d1 = L.marker(
+            var marker_04f2281e998139ecab9f6c7505e64a56 = L.marker(
                 [36.00333833198901, -78.94253000899681],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_967087ecd8d91d7ba722314d2281c5d1.bindTooltip(
+            marker_04f2281e998139ecab9f6c7505e64a56.bindTooltip(
                 `<div>
                      Physics
                  </div>`,
@@ -248,14 +273,14 @@
             );
         
     
-            var marker_8dadeaf1191fd79d90e09ad6f3fec030 = L.marker(
+            var marker_b6d4ed67f8dcc12775f6559dad3878a2 = L.marker(
                 [36.00133946557715, -78.94475781060652],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_8dadeaf1191fd79d90e09ad6f3fec030.bindTooltip(
+            marker_b6d4ed67f8dcc12775f6559dad3878a2.bindTooltip(
                 `<div>
                      Gross Hall
                  </div>`,
@@ -265,14 +290,14 @@
             );
         
     
-            var marker_e83d5ad4827e1d1e8c51a4860bea0648 = L.marker(
+            var marker_f3c264e370def5659fade080aa7cce95 = L.marker(
                 [36.00449510522876, -78.94196642519233],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_e83d5ad4827e1d1e8c51a4860bea0648.bindTooltip(
+            marker_f3c264e370def5659fade080aa7cce95.bindTooltip(
                 `<div>
                      LSRC
                  </div>`,
@@ -282,14 +307,14 @@
             );
         
     
-            var marker_edc1035a30ee72b78757f474103cb78c = L.marker(
+            var marker_feb1838262197476fd08a83ec0a79171 = L.marker(
                 [36.00219492164742, -78.94305261083066],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_edc1035a30ee72b78757f474103cb78c.bindTooltip(
+            marker_feb1838262197476fd08a83ec0a79171.bindTooltip(
                 `<div>
                      BioSci
                  </div>`,
@@ -299,14 +324,14 @@
             );
         
     
-            var marker_0a21c24df393488a247cf58e4cb56dec = L.marker(
+            var marker_1e24f48f1ad4e38ed6f8e377cc6926b0 = L.marker(
                 [36.00184747329267, -78.93856614647872],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_0a21c24df393488a247cf58e4cb56dec.bindTooltip(
+            marker_1e24f48f1ad4e38ed6f8e377cc6926b0.bindTooltip(
                 `<div>
                      Perkins Library
                  </div>`,
@@ -316,14 +341,14 @@
             );
         
     
-            var marker_fa017f061f356ad5f3b68e6cfeaaaf57 = L.marker(
+            var marker_3f317b0a1b19b0b01333c0203b3f6943 = L.marker(
                 [36.00195241128331, -78.94029518851522],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_fa017f061f356ad5f3b68e6cfeaaaf57.bindTooltip(
+            marker_3f317b0a1b19b0b01333c0203b3f6943.bindTooltip(
                 `<div>
                      Duke Chapel
                  </div>`,
@@ -333,14 +358,14 @@
             );
         
     
-            var marker_40a1bcf56884492986b2395b586aefea = L.marker(
+            var marker_533d54edf57ba17227ceee6423de08b9 = L.marker(
                 [36.00091421047573, -78.9407338456745],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_40a1bcf56884492986b2395b586aefea.bindTooltip(
+            marker_533d54edf57ba17227ceee6423de08b9.bindTooltip(
                 `<div>
                      Bryan Center
                  </div>`,
@@ -350,14 +375,14 @@
             );
         
     
-            var marker_20e8eadef8d2c3ec21dbd632c53b2808 = L.marker(
+            var marker_0e4efbeceb0b06002d39a7fa0992fbc4 = L.marker(
                 [36.00077963338793, -78.93936323823499],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_20e8eadef8d2c3ec21dbd632c53b2808.bindTooltip(
+            marker_0e4efbeceb0b06002d39a7fa0992fbc4.bindTooltip(
                 `<div>
                      West Union
                  </div>`,
@@ -367,14 +392,14 @@
             );
         
     
-            var marker_0d7bcc9b2e3267ac6501a6c015ccf16b = L.marker(
+            var marker_ecdc7bd5ba4a6a73f377ccfda2f23272 = L.marker(
                 [36.00129135336987, -78.93992262979393],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_0d7bcc9b2e3267ac6501a6c015ccf16b.bindTooltip(
+            marker_ecdc7bd5ba4a6a73f377ccfda2f23272.bindTooltip(
                 `<div>
                      Page
                  </div>`,
@@ -384,14 +409,14 @@
             );
         
     
-            var marker_c574fcb208334816a9e2946642e60816 = L.marker(
+            var marker_4971ff645c4c3ac269a65a92956796f4 = L.marker(
                 [36.00128888402019, -78.93778809614771],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_c574fcb208334816a9e2946642e60816.bindTooltip(
+            marker_4971ff645c4c3ac269a65a92956796f4.bindTooltip(
                 `<div>
                      Allen
                  </div>`,
@@ -401,14 +426,14 @@
             );
         
     
-            var marker_31a759f5d51a98c16aad1678ace3ceff = L.marker(
+            var marker_88d7cfe55a34bfa178b7fe795f830865 = L.marker(
                 [36.002446998795385, -78.93706961044322],
                 {
 }
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            marker_31a759f5d51a98c16aad1678ace3ceff.bindTooltip(
+            marker_88d7cfe55a34bfa178b7fe795f830865.bindTooltip(
                 `<div>
                      Reuben Cooke
                  </div>`,
@@ -418,31 +443,15 @@
             );
         
     
-            var poly_line_5050735a9186c403a457d810328462b0 = L.polyline(
-                [[36.00449510522876, -78.94196642519233], [36.00333833198901, -78.94253000899681], [36.00195241128331, -78.94029518851522], [36.00184747329267, -78.93856614647872], [36.00128888402019, -78.93778809614771]],
+            var poly_line_3ce8eb9b1358b76653adbce5e1fe0dd9 = L.polyline(
+                [[36.00077963338793, -78.93936323823499], [36.00184747329267, -78.93856614647872], [36.00225493310811, -78.93804097798417], [36.00286152405447, -78.9377500885152]],
                 {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 5}
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
+            ).addTo(map_cdf339057c1afd35d167a88ea5864f69);
         
     
-            poly_line_5050735a9186c403a457d810328462b0.bindTooltip(
+            poly_line_3ce8eb9b1358b76653adbce5e1fe0dd9.bindTooltip(
                 `<div>
-                     Default Path: LSRC → Allen (8 min)
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-            var poly_line_6c8445f3e3213749b801ca84655e13a6 = L.polyline(
-                [[36.00449510522876, -78.94196642519233], [36.00333833198901, -78.94253000899681], [36.00091421047573, -78.9407338456745], [36.00077963338793, -78.93936323823499], [36.00128888402019, -78.93778809614771]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 5}
-            ).addTo(map_d3e029754a164bd8fde2c7f1d894017e);
-        
-    
-            poly_line_6c8445f3e3213749b801ca84655e13a6.bindTooltip(
-                `<div>
-                     Accessible Path: LSRC → Allen (15 min)
+                     Default Path: West Union → Old Chem (4 min)
                  </div>`,
                 {
   "sticky": true,

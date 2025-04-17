@@ -190,19 +190,47 @@ def draw_folium_map(paths=None, accessible=False, time=None):
     """
 
     map_path = "duke_path_map.html"
+
     legend_html = """
     <div style="
         position: fixed; 
-        bottom: 50px; left: 50px; width: 200px; height: 120px; 
-        border:2px solid grey; z-index:9999; font-size:14px;
-        background-color:white; padding:10px;">
+        bottom: 50px; left: 50px; 
+        width: 200px;
+        z-index: 9999; 
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent white */
+        border-radius: 5px;  /* Rounded corners */
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);  /* Subtle shadow */
+        padding: 12px;
+        ">
         <b>Path Legend</b><br>
-        <span style="color:red;">&#9632;</span> Default Route<br>
-        <span style="color:blue;">&#9632;</span> Accessible Route<br>
-        <span style="color:#c084fc;">&#9632;</span> Same Path (Default + Accessible)<br>
+        <div style="margin-top: 8px;">
+            <span style="color:red; font-size: 16px;">&#9632;</span> Default Route<br>
+            <span style="color:blue; font-size: 16px;">&#9632;</span> Accessible Route<br>
+            <span style="color:#c084fc; font-size: 16px;">&#9632;</span> Same Path (Default + Accessible)<br>
+        </div>
     </div>
     """
     campus_map.get_root().html.add_child(folium.Element(legend_html))
+
+    logo_html = """
+    <div style="
+        position: fixed; 
+        top: 20px; right: 20px; 
+        width: 80px; height: 80px;  /* Made the container larger */
+        z-index: 9999;
+        background-color: rgba(255, 255, 255, 0.8);  /* 80% opaque white */
+        border-radius: 5px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        padding: 1px;  /* Reduced padding to allow icon to fill more space */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        ">
+        <img src="duke_accessibility_map_icon.ico" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    """
+    campus_map.get_root().html.add_child(folium.Element(logo_html))
 
     campus_map.save(map_path)
     chrome_path = "open -a /Applications/Google\\ Chrome.app %s"
@@ -275,6 +303,21 @@ root = tk.Tk()
 root.title("Duke Campus Map Path Finder")
 root.geometry("400x300")
 
+from PIL import Image, ImageTk
+
+# Load and resize the icon
+try:
+    # Load and resize the icon
+    icon_img = Image.open("duke_accessibility_map_icon.ico").resize((64, 64))
+    icon_tk = ImageTk.PhotoImage(icon_img)
+    
+    # Place it at the top of your GUI using pack
+    icon_label = ttk.Label(root, image=icon_tk)
+    icon_label.image = icon_tk  # keep reference!
+    icon_label.pack(pady=(10, 5))
+except Exception as e:
+    print(f"Could not load icon: {e}")
+
 start_var = tk.StringVar()
 end_var = tk.StringVar()
 accessible_var = tk.BooleanVar()
@@ -292,7 +335,6 @@ ttk.Combobox(root, textvariable=start_var, values=nodes, state="readonly").pack(
 ttk.Label(root, text="End Location:").pack(pady=5)
 ttk.Combobox(root, textvariable=end_var, values=nodes, state="readonly").pack()
 
-
 ttk.Label(root, text="Route Type:").pack(pady=(10, 0))
 ttk.Radiobutton(root, text="Default Route", variable=route_option, value="default").pack()
 ttk.Radiobutton(root, text="Accessible Route", variable=route_option, value="accessible").pack()
@@ -303,5 +345,4 @@ ttk.Button(root, text="Find Path", command=on_find_path).pack()
 
 ttk.Label(root, textvariable=result, wraplength=350, foreground="blue").pack(pady=15)
 
-#"""
 root.mainloop()
