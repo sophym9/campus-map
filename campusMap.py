@@ -13,38 +13,38 @@ nodes = ["Perkins Library", "Duke Chapel", "Bryan Center", "West Union", "Page",
          "Wellness", "Wilson", "Gross Hall", "BioSci", "French", "Physics", "LSRC"]
 G.add_nodes_from(nodes)
 
-G.add_edge("West Union", "Page", normal_weight=1)  # not accessible
-G.add_edge("West Union", "Perkins Library", normal_weight=2, accessible_weight=2)
-G.add_edge("Perkins Library", "Duke Chapel", normal_weight=1, accessible_weight=2)
-G.add_edge("Page", "Duke Chapel", normal_weight=1, accessible_weight=1)
-G.add_edge("West Union", "Allen", normal_weight=2, accessible_weight=2)
-G.add_edge("Page", "Bryan Center", normal_weight=2)  # not accessible
-G.add_edge("West Union", "Bryan Center", normal_weight=1, accessible_weight=1)
-G.add_edge("Duke Chapel", "Bryan Center", normal_weight=2, accessible_weight=4)
-G.add_edge("Perkins Library", "Languages", normal_weight=1, accessible_weight=1)
-G.add_edge("Perkins Library", "Allen", normal_weight=1, accessible_weight=1)
-G.add_edge("Perkins Library", "Social Sciences", normal_weight=1, accessible_weight=1)
-G.add_edge("Allen", "Social Sciences", normal_weight=1, accessible_weight=1)
-G.add_edge("Social Sciences", "Reuben Cooke", normal_weight=1, accessible_weight=1)
-G.add_edge("Languages", "Old Chem", normal_weight=1, accessible_weight=1)
-G.add_edge("Languages", "Social Sciences", normal_weight=1, accessible_weight=1)
-G.add_edge("Reuben Cooke", "Old Chem", normal_weight=1, accessible_weight=1)
-G.add_edge("Old Chem", "Bostock", normal_weight=1, accessible_weight=1)
-G.add_edge("Bostock", "Perkins Library", normal_weight=1, accessible_weight=1)
-G.add_edge("Bryan Center", "Penn", normal_weight=1, accessible_weight=1)
-G.add_edge("Penn", "Wellness", normal_weight=1, accessible_weight=1)
-G.add_edge("Wellness", "Wilson", normal_weight=4, accessible_weight=4)
-G.add_edge("Wellness", "Gross Hall", normal_weight=4, accessible_weight=4)
-G.add_edge("BioSci", "Gross Hall", normal_weight=3, accessible_weight=5)
-G.add_edge("BioSci", "French", normal_weight=2)  # not accessible
-G.add_edge("BioSci", "Physics", normal_weight=2, accessible_weight=2)
-G.add_edge("French", "Physics", normal_weight=2, accessible_weight=2)
-G.add_edge("Physics", "LSRC", normal_weight=3, accessible_weight=8)
-G.add_edge("Physics", "Duke Chapel", normal_weight=3)  # not accessible
-G.add_edge("Wilson", "West Union", normal_weight=7, accessible_weight=7)
-G.add_edge("Gross Hall", "Bryan Center", normal_weight=4)  # not accessible
-G.add_edge("Physics", "Bryan Center", normal_weight=4, accessible_weight=4)
-G.add_edge("BioSci", "Bryan Center", normal_weight=3, accessible_weight=3)
+G.add_edge("West Union", "Page", default_weight=1)  # not accessible
+G.add_edge("West Union", "Perkins Library", default_weight=2, accessible_weight=2)
+G.add_edge("Perkins Library", "Duke Chapel", default_weight=1, accessible_weight=2)
+G.add_edge("Page", "Duke Chapel", default_weight=1, accessible_weight=1)
+G.add_edge("West Union", "Allen", default_weight=2, accessible_weight=2)
+G.add_edge("Page", "Bryan Center", default_weight=2)  # not accessible
+G.add_edge("West Union", "Bryan Center", default_weight=1, accessible_weight=1)
+G.add_edge("Duke Chapel", "Bryan Center", default_weight=2, accessible_weight=4)
+G.add_edge("Perkins Library", "Languages", default_weight=1, accessible_weight=1)
+G.add_edge("Perkins Library", "Allen", default_weight=1, accessible_weight=1)
+G.add_edge("Perkins Library", "Social Sciences", default_weight=1, accessible_weight=1)
+G.add_edge("Allen", "Social Sciences", default_weight=1, accessible_weight=1)
+G.add_edge("Social Sciences", "Reuben Cooke", default_weight=1, accessible_weight=1)
+G.add_edge("Languages", "Old Chem", default_weight=1, accessible_weight=1)
+G.add_edge("Languages", "Social Sciences", default_weight=1, accessible_weight=1)
+G.add_edge("Reuben Cooke", "Old Chem", default_weight=1, accessible_weight=1)
+G.add_edge("Old Chem", "Bostock", default_weight=1, accessible_weight=1)
+G.add_edge("Bostock", "Perkins Library", default_weight=1, accessible_weight=1)
+G.add_edge("Bryan Center", "Penn", default_weight=1, accessible_weight=1)
+G.add_edge("Penn", "Wellness", default_weight=1, accessible_weight=1)
+G.add_edge("Wellness", "Wilson", default_weight=4, accessible_weight=4)
+G.add_edge("Wellness", "Gross Hall", default_weight=4, accessible_weight=4)
+G.add_edge("BioSci", "Gross Hall", default_weight=3, accessible_weight=5)
+G.add_edge("BioSci", "French", default_weight=2)  # not accessible
+G.add_edge("BioSci", "Physics", default_weight=2, accessible_weight=2)
+G.add_edge("French", "Physics", default_weight=2, accessible_weight=2)
+G.add_edge("Physics", "LSRC", default_weight=3, accessible_weight=8)
+G.add_edge("Physics", "Duke Chapel", default_weight=3)  # not accessible
+G.add_edge("Wilson", "West Union", default_weight=7, accessible_weight=7)
+G.add_edge("Gross Hall", "Bryan Center", default_weight=4)  # not accessible
+G.add_edge("Physics", "Bryan Center", default_weight=4, accessible_weight=4)
+G.add_edge("BioSci", "Bryan Center", default_weight=3, accessible_weight=3)
 
 #nodes
 #node_positions = {
@@ -84,7 +84,7 @@ def find_path(graph, start, end, accessible=False):
     if start == end:
         return [start], 0
 
-    weight_type = "accessible_weight" if accessible else "normal_weight"
+    weight_type = "accessible_weight" if accessible else "default_weight"
 
     # subgraph w only valid edges for path type
     subgraph = nx.Graph()
@@ -166,7 +166,7 @@ def on_find_path():
         return
     path, time = find_path(G, start, end, accessible)
     if path:
-        result.set(f"{'Accessible' if accessible else 'Normal'} Path:\n{' -> '.join(path)}\n({time} min)")
+        result.set(f"{'Accessible' if accessible else 'Default'} Path:\n{' -> '.join(path)}\n({time} min)")
         draw_folium_map(highlight_path=path)
     else:
         result.set("No path found.")
