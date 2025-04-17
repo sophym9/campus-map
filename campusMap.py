@@ -136,13 +136,43 @@ def draw_graph(highlight_path=None):
     plt.show()
 
 
-def draw_folium_map(highlight_path=None, accessible=False, time=None):
-    start = node_positions[highlight_path[0]]
-    campus_map = folium.Map(location=start, zoom_start=17)
+def draw_folium_map(paths=None, accessible=False, time=None):
+    if not paths:
+        return
+
+    start_node = paths[0][1][0]
+    campus_map = folium.Map(location=node_positions[start_node], zoom_start=17)
+
+    #start = node_positions[highlight_path[0]]
+    #campus_map = folium.Map(location=start, zoom_start=17)
 
     for name, coord in node_positions.items():
         folium.Marker(coord, tooltip=name).add_to(campus_map)
 
+
+    color_map = {
+        "Default": "red",
+        "Accessible": "blue",
+        "Same": "#c084fc"
+    }
+
+    for path_type, path, time in paths:
+        coords = [node_positions[node] for node in path]
+
+        # If times are a tuple (default_time, accessible_time)
+        if isinstance(time, tuple):
+            default_time, accessible_time = time
+            label = f"Default & Accessible Path (Same): {path[0]} → {path[-1]} (Default: {round(default_time)} min, Accessible: {round(accessible_time)} min)"
+        else:
+            label = f"{path_type} Path: {path[0]} → {path[-1]} ({round(time)} min)"
+
+        folium.PolyLine(
+            coords,
+            color=color_map.get(path_type, "gray"),
+            weight=5,
+            tooltip=label
+        ).add_to(campus_map)
+    """
     if highlight_path:
         coords = [node_positions[node] for node in highlight_path]
         #folium.PolyLine(coords, color="red", weight=5).add_to(campus_map)
@@ -157,8 +187,23 @@ def draw_folium_map(highlight_path=None, accessible=False, time=None):
             weight=5,
             tooltip=path_label  # This adds the hover label
         ).add_to(campus_map)
+    """
 
     map_path = "duke_path_map.html"
+    legend_html = """
+    <div style="
+        position: fixed; 
+        bottom: 50px; left: 50px; width: 200px; height: 120px; 
+        border:2px solid grey; z-index:9999; font-size:14px;
+        background-color:white; padding:10px;">
+        <b>Path Legend</b><br>
+        <span style="color:red;">&#9632;</span> Default Route<br>
+        <span style="color:blue;">&#9632;</span> Accessible Route<br>
+        <span style="color:#c084fc;">&#9632;</span> Same Path (Default + Accessible)<br>
+    </div>
+    """
+    campus_map.get_root().html.add_child(folium.Element(legend_html))
+
     campus_map.save(map_path)
     chrome_path = "open -a /Applications/Google\\ Chrome.app %s"
     webbrowser.get(chrome_path).open(map_path)
@@ -170,18 +215,63 @@ def draw_folium_map(highlight_path=None, accessible=False, time=None):
 def on_find_path():
     start = start_var.get()
     end = end_var.get()
-    accessible = accessible_var.get()
+    route_choice = route_option.get()
+
+    #show_both = show_both_var.get()
+    #accessible = accessible_var.get()
+
     if not start or not end:
         messagebox.showerror("Error", "Please select both start and end locations.")
         return
-    path, time = find_path(G, start, end, accessible)
+    
+    # get both paths regardless of option selected
+    default_path, default_time = find_path(G, start, end, accessible=False)
+    accessible_path, accessible_time = find_path(G, start, end, accessible=True)
+    
+    if not default_path and not accessible_path:
+        result.set("No path found.")
+        return
+
+    text = ""
+    if route_choice == "both":
+        paths_to_draw = []
+        if default_path and accessible_path and default_path == accessible_path:
+            label = f"Default & Accessible Path (Same):\n{' → '.join(default_path)}\n(Default: {round(default_time)} min, Accessible: {round(accessible_time)} min)"
+            result.set(label)
+            draw_folium_map(paths=[("Same", default_path, (default_time, accessible_time))])
+            return  # exit early since we've already handled display
+        else:
+            if default_path:
+                text += f"Default Path:\n{' → '.join(default_path)}\n({round(default_time)} min)\n\n"
+                paths_to_draw.append(("Default", default_path, default_time))
+            if accessible_path:
+                text += f"Accessible Path:\n{' → '.join(accessible_path)}\n({round(accessible_time)} min)"
+                paths_to_draw.append(("Accessible", accessible_path, accessible_time))
+
+            draw_folium_map(paths=paths_to_draw)
+
+    elif route_choice == "accessible" and accessible_path:
+        text += f"Accessible Path:\n{' → '.join(accessible_path)}\n({round(accessible_time)} min)"
+        draw_folium_map(paths=[("Accessible", accessible_path, accessible_time)])
+
+    elif route_choice == "default" and default_path:
+        text += f"Default Path:\n{' → '.join(default_path)}\n({round(default_time)} min)"
+        draw_folium_map(paths=[("Default", default_path, default_time)])
+
+    result.set(text.strip())
+
+    #path, time = find_path(G, start, end, accessible)
+    """
     if path:
         result.set(f"{'Accessible' if accessible else 'Default'} Path:\n{' -> '.join(path)}\n({time} min)")
         draw_folium_map(highlight_path=path, accessible=accessible, time=time)
     else:
         result.set("No path found.")
+    """
+
 
 root = tk.Tk()
+
 root.title("Duke Campus Map Path Finder")
 root.geometry("400x300")
 
@@ -190,15 +280,28 @@ end_var = tk.StringVar()
 accessible_var = tk.BooleanVar()
 result = tk.StringVar()
 
+# to show both paths
+show_both_var = tk.BooleanVar()
+route_option = tk.StringVar(value="default")  # default selection
+
+#ttk.Checkbutton(root, text="Show Both Paths", variable=show_both_var).pack(pady=5)
+
 ttk.Label(root, text="Start Location:").pack(pady=5)
 ttk.Combobox(root, textvariable=start_var, values=nodes, state="readonly").pack()
 
 ttk.Label(root, text="End Location:").pack(pady=5)
 ttk.Combobox(root, textvariable=end_var, values=nodes, state="readonly").pack()
 
-ttk.Checkbutton(root, text="Accessible Route", variable=accessible_var).pack(pady=10)
+
+ttk.Label(root, text="Route Type:").pack(pady=(10, 0))
+ttk.Radiobutton(root, text="Default Route", variable=route_option, value="default").pack()
+ttk.Radiobutton(root, text="Accessible Route", variable=route_option, value="accessible").pack()
+ttk.Radiobutton(root, text="Show Both Paths", variable=route_option, value="both").pack()
+
+#ttk.Checkbutton(root, text="Accessible Route", variable=accessible_var).pack(pady=10)
 ttk.Button(root, text="Find Path", command=on_find_path).pack()
 
 ttk.Label(root, textvariable=result, wraplength=350, foreground="blue").pack(pady=15)
 
+#"""
 root.mainloop()
