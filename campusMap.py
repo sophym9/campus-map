@@ -147,8 +147,11 @@ def draw_folium_map(highlight_path=None):
         coords = [node_positions[node] for node in highlight_path]
         folium.PolyLine(coords, color="red", weight=5).add_to(campus_map)
 
-    campus_map.save("duke_path_map.html")
-    webbrowser.open("duke_path_map.html")
+    map_path = "duke_path_map.html"
+    campus_map.save(map_path)
+    chrome_path = "open -a /Applications/Google\\ Chrome.app %s"
+    webbrowser.get(chrome_path).open(map_path)
+    #webbrowser.open("duke_path_map.html")
 
 
 
